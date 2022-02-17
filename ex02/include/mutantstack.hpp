@@ -7,10 +7,14 @@
 template <typename T>
 class MutantStack : public std::stack<T> {
  public:
-  MutantStack();
-  MutantStack(const MutantStack &other);
-  MutantStack &operator=(const MutantStack &other);
-  virtual ~MutantStack();
+  MutantStack(){};
+  MutantStack(const MutantStack &other){ *this = other; };
+  MutantStack &operator=(const MutantStack &other){
+    if (this != &other) {
+    }
+    return *this;
+  };
+  virtual ~MutantStack(){};
 
  private:
 
