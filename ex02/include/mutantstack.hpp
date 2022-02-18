@@ -7,7 +7,7 @@
 template <typename T>
 class MutantStack : public std::stack<T> {
  public:
-  class iterator : public std::iterator<std::forward_iterator_tag, T> {
+  class iterator : public std::iterator<std::bidirectional_iterator_tag, T> {
    private:
     size_t index_;
     MutantStack* stack_;
@@ -24,7 +24,9 @@ class MutantStack : public std::stack<T> {
       return *this;
     };
     iterator& operator++() {
-      ++index_;
+      if (index_ < this->stack_->size()) {
+        ++index_;
+      }
       return *this;
     };
     iterator operator++(int) {
