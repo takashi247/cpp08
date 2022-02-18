@@ -8,7 +8,8 @@ SRCSDIR		:= srcs/
 
 OBJSDIR		:= objs/
 
-SRCS		:= main.cpp
+SRCS		:= main.cpp \
+						mutantstack.cpp
 
 OBJS		:= $(addprefix $(OBJSDIR), $(SRCS:.cpp=.o))
 
