@@ -25,7 +25,7 @@ class Span {
       vec_.insert(vec_.begin() + num_elem_, first, last);
       num_elem_ += len;
     } else {
-      throw std::exception();
+      throw std::out_of_range("addNumber out of range");
     }
   }
 

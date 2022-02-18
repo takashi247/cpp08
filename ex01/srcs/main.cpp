@@ -4,14 +4,19 @@
 int main() {
   Span sp = Span(5);
 
-  sp.addNumber(5);
-  sp.addNumber(3);
-  sp.addNumber(17);
-  sp.addNumber(9);
-  sp.addNumber(11);
+  try {
+    sp.addNumber(5);
+    sp.addNumber(3);
+    sp.addNumber(17);
+    sp.addNumber(9);
+    sp.addNumber(11);
 
-  std::cout << sp.shortestSpan() << std::endl;
-  std::cout << sp.longestSpan() << std::endl;
+    std::cout << sp.shortestSpan() << std::endl;
+    std::cout << sp.longestSpan() << std::endl;
+    sp.addNumber(42);
+  } catch (const std::out_of_range& e) {
+    std::cout << e.what() << std::endl;
+  }
 
 #ifdef TEST
   int arr[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -26,12 +31,12 @@ int main() {
     std::cout << std::endl;
     std::cout << sp_10.shortestSpan() << std::endl;
     std::cout << sp_10.longestSpan() << std::endl;
-  } catch (const std::exception&) {
-    std::cout << "invalid access" << std::endl;
+  } catch (const std::out_of_range& e) {
+    std::cout << e.what() << std::endl;
   }
   std::vector<int> vec_arr(arr, arr + 10);
   try {
-    Span sp_10 = Span(10);
+    Span sp_10 = Span(5);
     sp_10.addNumber(vec_arr.begin(), vec_arr.end());
     std::vector<int> vec = sp_10.getVec();
     std::vector<int>::const_iterator it_end = vec.end();
@@ -41,8 +46,8 @@ int main() {
     std::cout << std::endl;
     std::cout << sp_10.shortestSpan() << std::endl;
     std::cout << sp_10.longestSpan() << std::endl;
-  } catch (const std::exception&) {
-    std::cout << "invalid access" << std::endl;
+  } catch (const std::out_of_range& e) {
+    std::cout << e.what() << std::endl;
   }
 #endif
 }

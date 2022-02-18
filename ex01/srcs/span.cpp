@@ -34,7 +34,7 @@ void Span::addNumber(const int num) {
     vec_.push_back(num);
     ++num_elem_;
   } else {
-    throw std::exception();
+    throw std::out_of_range("addNumber out of range");
   }
 }
 
