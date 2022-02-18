@@ -11,10 +11,10 @@ class MutantStack : public std::stack<T> {
    private:
     size_t index_;
     MutantStack* stack_;
-    iterator() : index_(SIZE_MAX), stack_(NULL) {};
-    iterator(MutantStack* stack, size_t index) : index_(index), stack_(stack) {}
 
    public:
+    iterator() : index_(0), stack_(NULL) {};
+    iterator(MutantStack* stack, size_t index) : index_(index), stack_(stack) {};
     iterator(const iterator& other) { *this = other; };
     iterator& operator=(const iterator &other) {
       if (this != &other) {
@@ -22,7 +22,7 @@ class MutantStack : public std::stack<T> {
         stack_ = other.stack_;
       }
       return *this;
-    }
+    };
     iterator& operator++() {
       ++index_;
       return *this;
@@ -32,16 +32,32 @@ class MutantStack : public std::stack<T> {
       ++(*this);
       return tmp;
     };
-    int& operator*() {
-      // neee to implement
+    iterator& operator--() {
+      if (0 < index_) {
+        --index_;
+      }
+      return *this;
+    };
+    iterator operator--(int) {
+      iterator tmp = *this;
+      --(*this);
+      return tmp;
+    };
+    T& operator*() {
+      std::stack<T> tmp = *(this->stack_);
+      for (size_t i = 0; i < this->stack_->size() - index_ - 1; ++i) {
+        tmp.pop();
+      }
+      return tmp.top();
     };
     bool operator==(const iterator& iterator) {
-      // need to implement
+      return this->stack_ == iterator.stack_ && this->index_ == iterator.index_;
     };
     bool operator!=(const iterator& iterator) {
-      // need to implement
+      return !(*this == iterator);
     };
   };
+
   MutantStack(){};
   MutantStack(const MutantStack &other){ *this = other; };
   MutantStack &operator=(const MutantStack &other){
@@ -50,6 +66,12 @@ class MutantStack : public std::stack<T> {
     return *this;
   };
   virtual ~MutantStack(){};
+  iterator begin() {
+    return iterator(this, 0);
+  }
+  iterator end() {
+    return iterator(this, this->size());
+  }
 
  private:
 
