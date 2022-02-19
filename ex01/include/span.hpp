@@ -3,17 +3,18 @@
 
 #include <vector>
 #include <iterator>
+#include <stdexcept>
 
 class Span {
  public:
   Span();
-  explicit Span(unsigned size);
+  explicit Span(unsigned int size);
   Span(const Span &other);
   Span& operator=(const Span &other);
   virtual ~Span();
 
-  unsigned getSize() const;
-  unsigned getNumElem() const;
+  unsigned int getSize() const;
+  unsigned int getNumElem() const;
   const std::vector<int>& getVec() const;
   void addNumber(const int num);
 
