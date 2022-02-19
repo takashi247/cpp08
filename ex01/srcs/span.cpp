@@ -40,7 +40,7 @@ void Span::addNumber(const int num) {
 
 long Span::shortestSpan() const {
   if (num_elem_ <= 1) {
-    throw std::exception();
+    throw std::out_of_range("shortestSpan() requires at least 2 elements");
   } else {
     long res = longestSpan();
     std::vector<int> vec(vec_);
@@ -50,9 +50,7 @@ long Span::shortestSpan() const {
       long first = static_cast<long>(*it);
       long second = static_cast<long>(*(it + 1));
       long tmp = second - first;
-      if (tmp < res) {
-        res = tmp;
-      }
+      res = std::min(res, tmp);
     }
     return res;
   }
@@ -60,7 +58,7 @@ long Span::shortestSpan() const {
 
 long Span::longestSpan() const {
   if (num_elem_ <= 1) {
-    throw std::exception();
+    throw std::out_of_range("longestSpan() requires at least 2 elements");
   } else {
     std::vector<int>::const_iterator min = std::min_element(vec_.begin(), vec_.end());
     std::vector<int>::const_iterator max = std::max_element(vec_.begin(), vec_.end());

@@ -24,6 +24,16 @@ int main() {
   }
 
 #ifdef TEST
+  std::cout << "\n---Copy constructor and assignation test---\n" << std::endl;
+  {
+    Span copy(sp);
+    std::cout << copy.shortestSpan() << std::endl;
+    std::cout << copy.longestSpan() << std::endl;
+    Span assign;
+    assign = sp;
+    std::cout << assign.shortestSpan() << std::endl;
+    std::cout << assign.longestSpan() << std::endl;
+  }
   std::cout << "\n---addNumber with int array---\n" << std::endl;
 
   int arr[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -98,7 +108,7 @@ int main() {
   }
   std::cout << "\n---Large vector---\n" << std::endl;
 
-  std::vector<int> vec_long_max(std::numeric_limits<unsigned int>::max(), 0);
+  std::vector<int> vec_long_max(1000, 0);
   try {
     Span sp_100 = Span(100);
     sp_100.addNumber(vec_long_max.begin(), vec_long_max.end());
