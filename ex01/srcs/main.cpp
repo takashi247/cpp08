@@ -75,28 +75,48 @@ int main() {
   } catch (const std::out_of_range& e) {
     std::cout << e.what() << std::endl;
   }
-  std::cout << "\n---Span with maximum size---\n" << std::endl;
+  std::cout << "\n---Span with INT_MAX and INT_MIN---\n" << std::endl;
 
-  std::vector<int> large_vec(std::numeric_limits<unsigned int>::max(), 0);
-  std::vector<int>::iterator it_head = large_vec.begin();
+  std::vector<int> vec_min_max(100, 0);
+  std::vector<int>::iterator it_head = vec_min_max.begin();
   *it_head = std::numeric_limits<int>::min();
-  std::vector<int>::reverse_iterator it_tail = large_vec.rbegin();
+  std::vector<int>::reverse_iterator it_tail = vec_min_max.rbegin();
   *it_tail = std::numeric_limits<int>::max();
   try {
-    Span sp_max = Span(std::numeric_limits<unsigned int>::max());
-    sp_max.addNumber(large_vec.begin(), large_vec.end());
-    // std::vector<int> vec = sp_max.getVec();
-    // std::vector<int>::const_iterator it_end = vec.end();
-    // for (std::vector<int>::const_iterator it = vec.begin(); it < it_end; ++it) {
-    //   std::cout << *it << " ";
-    // }
-    // std::cout << std::endl;
-    std::cout << sp_max.shortestSpan() << std::endl;
-    std::cout << sp_max.longestSpan() << std::endl;
+    Span sp_100 = Span(100);
+    sp_100.addNumber(vec_min_max.begin(), vec_min_max.end());
+    std::vector<int> vec = sp_100.getVec();
+    std::vector<int>::const_iterator it_end = vec.end();
+    for (std::vector<int>::const_iterator it = vec.begin(); it < it_end; ++it) {
+      std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+    std::cout << sp_100.shortestSpan() << std::endl;
+    std::cout << sp_100.longestSpan() << std::endl;
   } catch (const std::out_of_range& e) {
     std::cout << e.what() << std::endl;
   }
-#
+  // std::cout << "\n---Span with maximum size---\n" << std::endl;
+
+  // std::vector<int> large_vec(std::numeric_limits<unsigned int>::max(), 0);
+  // std::vector<int>::iterator it_head = large_vec.begin();
+  // *it_head = std::numeric_limits<int>::min();
+  // std::vector<int>::reverse_iterator it_tail = large_vec.rbegin();
+  // *it_tail = std::numeric_limits<int>::max();
+  // try {
+  //   Span sp_max = Span(std::numeric_limits<unsigned int>::max());
+  //   sp_max.addNumber(large_vec.begin(), large_vec.end());
+  //   std::vector<int> vec = sp_max.getVec();
+  //   std::vector<int>::const_iterator it_end = vec.end();
+  //   for (std::vector<int>::const_iterator it = vec.begin(); it < it_end; ++it) {
+  //     std::cout << *it << " ";
+  //   }
+  //   std::cout << std::endl;
+  //   std::cout << sp_max.shortestSpan() << std::endl;
+  //   std::cout << sp_max.longestSpan() << std::endl;
+  // } catch (const std::out_of_range& e) {
+  //   std::cout << e.what() << std::endl;
+  // }
 #endif
   std::cout << std::endl;
 }
