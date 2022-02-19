@@ -96,6 +96,23 @@ int main() {
   } catch (const std::out_of_range& e) {
     std::cout << e.what() << std::endl;
   }
+  std::cout << "\n---Large vector---\n" << std::endl;
+
+  std::vector<int> vec_long_max(std::numeric_limits<unsigned int>::max(), 0);
+  try {
+    Span sp_100 = Span(100);
+    sp_100.addNumber(vec_long_max.begin(), vec_long_max.end());
+    std::vector<int> vec = sp_100.getVec();
+    std::vector<int>::const_iterator it_end = vec.end();
+    for (std::vector<int>::const_iterator it = vec.begin(); it < it_end; ++it) {
+      std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+    std::cout << sp_100.shortestSpan() << std::endl;
+    std::cout << sp_100.longestSpan() << std::endl;
+  } catch (const std::out_of_range& e) {
+    std::cout << e.what() << std::endl;
+  }
   // std::cout << "\n---Span with maximum size---\n" << std::endl;
 
   // std::vector<int> large_vec(std::numeric_limits<unsigned int>::max(), 0);
