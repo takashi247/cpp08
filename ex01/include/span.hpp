@@ -19,18 +19,19 @@ class Span {
 
   template <typename InputIterator>
   void addNumber(InputIterator first, InputIterator last) {
-    unsigned int len = std::distance(first, last);
-    unsigned int remained_slot = size_ - num_elem_;
+    typedef typename std::iterator_traits<InputIterator>::difference_type diff_type;
+    diff_type len = std::distance(first, last);
+    diff_type remained_slot = static_cast<diff_type>(size_ - num_elem_);
     if (len <= remained_slot) {
       vec_.insert(vec_.begin() + num_elem_, first, last);
-      num_elem_ += len;
+      num_elem_ += static_cast<unsigned int>(len);
     } else {
       throw std::out_of_range("addNumber out of range");
     }
   }
 
-  int shortestSpan() const;
-  int longestSpan() const;
+  long shortestSpan() const;
+  long longestSpan() const;
 
  private:
   unsigned int size_;

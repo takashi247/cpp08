@@ -38,16 +38,18 @@ void Span::addNumber(const int num) {
   }
 }
 
-int Span::shortestSpan() const {
+long Span::shortestSpan() const {
   if (num_elem_ <= 1) {
     throw std::exception();
   } else {
-    int res = longestSpan();
+    long res = longestSpan();
     std::vector<int> vec(vec_);
     std::sort(vec.begin(), vec.end());
     std::vector<int>::const_iterator end_it = vec.end();
     for (std::vector<int>::const_iterator it = vec.begin(); it + 1 < end_it; ++it) {
-      int tmp = *(it + 1) - *it;
+      long first = static_cast<long>(*it);
+      long second = static_cast<long>(*(it + 1));
+      long tmp = second - first;
       if (tmp < res) {
         res = tmp;
       }
@@ -56,12 +58,14 @@ int Span::shortestSpan() const {
   }
 }
 
-int Span::longestSpan() const {
+long Span::longestSpan() const {
   if (num_elem_ <= 1) {
     throw std::exception();
   } else {
     std::vector<int>::const_iterator min = std::min_element(vec_.begin(), vec_.end());
     std::vector<int>::const_iterator max = std::max_element(vec_.begin(), vec_.end());
-    return *max - *min;
+    long max_val = static_cast<long>(*max);
+    long min_val = static_cast<long>(*min);
+    return max_val - min_val;
   }
 }
