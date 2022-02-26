@@ -3,6 +3,7 @@
 #include <iostream>
 #include <exception>
 #include <algorithm>
+#include <functional>
 
 Span::Span() : size_(0), num_elem_(0) {}
 
@@ -42,17 +43,14 @@ long Span::shortestSpan() const {
   if (num_elem_ <= 1) {
     throw std::out_of_range("shortestSpan() requires at least 2 elements");
   } else {
-    long res = longestSpan();
-    std::vector<int> vec(vec_);
-    std::sort(vec.begin(), vec.end());
-    std::vector<int>::const_iterator end_it = vec.end();
-    for (std::vector<int>::const_iterator it = vec.begin(); it + 1 < end_it; ++it) {
-      long first = static_cast<long>(*it);
-      long second = static_cast<long>(*(it + 1));
-      long tmp = second - first;
-      res = std::min(res, tmp);
-    }
-    return res;
+    std::vector<long> vec_long(vec_.size());
+    std::copy(vec_.begin(), vec_.end(), vec_long.begin());
+    std::sort(vec_long.begin(), vec_long.end());
+    std::vector<long> vec_res(vec_.size());
+    std::transform(vec_long.begin() + 1, vec_long.end() - 1, vec_long.begin(), vec_res.begin(), std::minus<long>());
+    vec_res.push_back(longestSpan());
+    std::vector<long>::const_iterator min_it = std::min_element(vec_res.begin(), vec_res.end());
+    return *min_it;
   }
 }
 
