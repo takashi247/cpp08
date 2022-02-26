@@ -46,8 +46,8 @@ long Span::shortestSpan() const {
     std::vector<long> vec_long(vec_.size());
     std::copy(vec_.begin(), vec_.end(), vec_long.begin());
     std::sort(vec_long.begin(), vec_long.end());
-    std::vector<long> vec_res(vec_.size());
-    std::transform(vec_long.begin() + 1, vec_long.end() - 1, vec_long.begin(), vec_res.begin(), std::minus<long>());
+    std::vector<long> vec_res(num_elem_ - 1);
+    std::transform(vec_long.begin() + 1, vec_long.end(), vec_long.begin(), vec_res.begin(), std::minus<long>());
     vec_res.push_back(longestSpan());
     std::vector<long>::const_iterator min_it = std::min_element(vec_res.begin(), vec_res.end());
     return *min_it;
