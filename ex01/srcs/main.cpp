@@ -34,6 +34,20 @@ int main() {
     std::cout << assign.shortestSpan() << std::endl;
     std::cout << assign.longestSpan() << std::endl;
   }
+  std::cout << "\n---Exception test---\n" << std::endl;
+  try {
+    Span a(0);
+    std::cout << a.shortestSpan() << std::endl;
+  } catch (const std::out_of_range& e) {
+    std::cout << e.what() << std::endl;
+  }
+  try {
+    Span a(1);
+    a.addNumber(42);
+    std::cout << a.longestSpan() << std::endl;
+  } catch (const std::out_of_range& e) {
+    std::cout << e.what() << std::endl;
+  }
   std::cout << "\n---addNumber with int array---\n" << std::endl;
 
   int arr[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
